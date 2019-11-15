@@ -3,7 +3,6 @@ import time
 
 class Movement:
     def __init__ (self):
-        gpio.cleanup()
         gpio.setmode(gpio.BOARD)
         gpio.setwarnings(False)
         gpio.setup(7 , gpio.OUT)
@@ -12,28 +11,75 @@ class Movement:
         gpio.setup(15 , gpio.OUT)
 
 
-        p1 = gpio.PWM(7,100)
-        p2 = gpio.PWM(11,100)
-        p3 = gpio.PWM(13,100)
-        p4 = gpio.PWM(15,100)
+
+        self.p1 = gpio.PWM(7,50)
+        self.p2 = gpio.PWM(11,50)
+        self.p3 = gpio.PWM(13,50)
+        self.p4 = gpio.PWM(15,50)
+        
+        self.p2.start(0)
+        self.p1.start(0)
+        
+        self.p4.start(0)
+        self.p3.start(0)
+
+    def forward(self, cycle):
+        self.p1.ChangeDutyCycle(cycle)
+        self.p2.ChangeDutyCycle(0)
+
+        self.p3.ChangeDutyCycle(cycle)
+        self.p4.ChangeDutyCycle(0)
+       
+    
+    def backward(self, cycle):
+        self.p1.ChangeDutyCycle(0)
+        self.p2.ChangeDutyCycle(cycle)
+
+        self.p3.ChangeDutyCycle(0)
+        self.p4.ChangeDutyCycle(cycle)
+
+        
+    def left(self, cycle):
+        self.p1.ChangeDutyCycle(cycle)
+        self.p2.ChangeDutyCycle(0)
+
+        self.p3.ChangeDutyCycle(0)
+        self.p4.ChangeDutyCycle(cycle)
+        
+    
+    def right(self, cycle):
+        self.p1.ChangeDutyCycle(0)
+        self.p2.ChangeDutyCycle(cycle)
+
+        self.p3.ChangeDutyCycle(cycle)
+        self.p4.ChangeDutyCycle(0)
+        
+
 
     def move(self):
-        p1.start(100)
-        p2.start(100)
-        p3.start(100)
-        p4.start(100)
+        print('Here')
+        self.backward(100)
+        print('Blah')
+        while True:
+            pass
+       
 
-        time.sleep(2)
-
-        p1.stop()
-        p2.stop()
-        p3.stop()
-        p4.stop()
+    def cleanup(self):
+        self.p1.stop()
+        self.p2.stop()
+        self.p3.stop()
+        self.p4.stop()
         gpio.cleanup()
+
+
 
 if __name__ == "__main__":
     movement = Movement()
-    movement.move()
+    try:
+        movement.move()
+        movement.cleanup()
+    except:
+        movement.cleanup()
 
 
 
