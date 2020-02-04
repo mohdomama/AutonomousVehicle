@@ -25,7 +25,7 @@ class Movement:
         self.p4.start(0)
         self.p3.start(0)
 
-    def backward(self, cycle):
+    def left(self, cycle): #left
         self.p1.ChangeDutyCycle(cycle)
         self.p2.ChangeDutyCycle(0)
 
@@ -33,7 +33,7 @@ class Movement:
         self.p4.ChangeDutyCycle(0)
        
     
-    def forward(self, cycle):
+    def right(self, cycle):  #right
         self.p1.ChangeDutyCycle(0)
         self.p2.ChangeDutyCycle(cycle)
 
@@ -41,7 +41,7 @@ class Movement:
         self.p4.ChangeDutyCycle(cycle)
 
         
-    def left(self, cycle):
+    def backward(self, cycle): #backward
         self.p1.ChangeDutyCycle(cycle)
         self.p2.ChangeDutyCycle(0)
 
@@ -49,7 +49,7 @@ class Movement:
         self.p4.ChangeDutyCycle(cycle)
         
     
-    def right(self, cycle):
+    def forward(self, cycle): #forward
         self.p1.ChangeDutyCycle(0)
         self.p2.ChangeDutyCycle(cycle)
 
@@ -77,7 +77,7 @@ class Movement:
         np.array([77, 255, 255])]
         print('Love')
         cam = camera.Camera()
-        
+        max_thrust = 30
         try:
             while True:
                 image = cam.read()
@@ -87,17 +87,19 @@ class Movement:
                     cx, cy = centroid
                     center = float(image.shape[1] / 2)
                     
-                    diff_per = (cx - center) / (2 * center)
+                    diff_per = (cx - center) / (center)
                     
                     print('Diff_Per ', diff_per)
                     if diff_per > 0.2:
                         print('Going Right')
-                        self.right(100)
+                        thrust = abs(diff_per) * max_thrust 
+                        self.right(thrust)
                     elif diff_per < -0.2:
                         print('Going Left')
-                        self.left(100)
+                        thrust = abs(diff_per) * max_thrust 
+                        self.left(thrust)
                     else:
-                        self.forward(100)
+                        self.forward(40)
                 else:
                     self.stop()
                     
@@ -120,9 +122,15 @@ class Movement:
 if __name__ == "__main__":
     movement = Movement()
     try:
-        movement.forward(50)
-        time.sleep(2)
-        
+#         movement.forward(80)
+#         time.sleep(2)
+#         movement.backward(80)
+#         time.sleep(2)
+#         movement.left(80)
+#         time.sleep(2)
+#         movement.right(80)
+#         time.sleep(2)
+        movement.move()
     except Exception as e:
         print(e)
         movement.cleanup()
