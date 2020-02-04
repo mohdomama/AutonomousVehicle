@@ -1,6 +1,5 @@
 import RPi.GPIO as gpio
 import time
-import camera
 import numpy as np
 
 class Movement:
@@ -62,6 +61,30 @@ class Movement:
 
         self.p3.ChangeDutyCycle(0)
         self.p4.ChangeDutyCycle(0)
+        
+    def custom_thrust(self, f_thrust, rot_thrust):
+        # f_thrust range is (-70, -40) U (40, 70)   here, negative means backward
+        # rot_thrust range is (-30, 0) U (0, 30)
+        
+        if f_thrust >= 0:
+            l_thrust = f_thrust + rot_thrust
+            r_thrust = f_thrust - rot_thrust
+
+            self.p1.ChangeDutyCycle(0)
+            self.p2.ChangeDutyCycle(l_thrust)
+
+            self.p3.ChangeDutyCycle(r_thrust)
+            self.p4.ChangeDutyCycle(0)
+            
+        else:
+            l_thrust = f_thrust - rot_thrust
+            r_thrust = f_thrust + rot_thrust
+            
+            self.p1.ChangeDutyCycle(abs(l_thrust))
+            self.p2.ChangeDutyCycle(0)
+
+            self.p3.ChangeDutyCycle(0)
+            self.p4.ChangeDutyCycle(abs(r_thrust))
         
 
 
@@ -130,7 +153,9 @@ if __name__ == "__main__":
 #         time.sleep(2)
 #         movement.right(80)
 #         time.sleep(2)
-        movement.move()
+        movement.custom_thrust(60, -30)
+        time.sleep(2)
+        movement.cleanup()
     except Exception as e:
         print(e)
         movement.cleanup()
