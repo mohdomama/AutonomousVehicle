@@ -1,6 +1,7 @@
 import RPi.GPIO as gpio
 import time
 import numpy as np
+import camera
 
 class Movement:
     def __init__ (self):
@@ -111,18 +112,9 @@ class Movement:
                     center = float(image.shape[1] / 2)
                     
                     diff_per = (cx - center) / (center)
-                    
+                    self.custom_thrust(60, diff_per*30)
                     print('Diff_Per ', diff_per)
-                    if diff_per > 0.2:
-                        print('Going Right')
-                        thrust = abs(diff_per) * max_thrust 
-                        self.right(thrust)
-                    elif diff_per < -0.2:
-                        print('Going Left')
-                        thrust = abs(diff_per) * max_thrust 
-                        self.left(thrust)
-                    else:
-                        self.forward(40)
+                    
                 else:
                     self.stop()
                     
@@ -153,8 +145,7 @@ if __name__ == "__main__":
 #         time.sleep(2)
 #         movement.right(80)
 #         time.sleep(2)
-        movement.custom_thrust(60, -30)
-        time.sleep(2)
+        movement.move()
         movement.cleanup()
     except Exception as e:
         print(e)
