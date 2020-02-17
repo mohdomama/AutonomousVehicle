@@ -1,7 +1,7 @@
 import RPi.GPIO as gpio
 import time
 import numpy as np
-import camera
+from Motion import camera
 
 class Movement:
     def __init__ (self):
@@ -64,31 +64,49 @@ class Movement:
         self.p4.ChangeDutyCycle(0)
         
     def custom_thrust(self, f_thrust, rot_thrust):
-        # f_thrust range is (-70, -40) U (40, 70)   here, negative means backward
-        # rot_thrust range is (-30, 0) U (0, 30)
+        # f_thrust range is (-1, 1)    here, negative means backward
+        # rot_thrust range is (-1, 1) 
         
-        if f_thrust >= 0:
-            l_thrust = f_thrust + rot_thrust
-            r_thrust = f_thrust - rot_thrust
+#         if f_thrust >= 0:
+#             l_thrust = f_thrust + rot_thrust
+#             r_thrust = f_thrust - rot_thrust
 
-            self.p1.ChangeDutyCycle(0)
-            self.p2.ChangeDutyCycle(l_thrust)
+#             self.p1.ChangeDutyCycle(0)
+#             self.p2.ChangeDutyCycle(l_thrust)
 
-            self.p3.ChangeDutyCycle(r_thrust)
-            self.p4.ChangeDutyCycle(0)
+#             self.p3.ChangeDutyCycle(r_thrust)
+#             self.p4.ChangeDutyCycle(0)
             
-        else:
-            l_thrust = f_thrust - rot_thrust
-            r_thrust = f_thrust + rot_thrust
+#         else:
+#             l_thrust = f_thrust - rot_thrust
+#             r_thrust = f_thrust + rot_thrust
             
+#             self.p1.ChangeDutyCycle(abs(l_thrust))
+#             self.p2.ChangeDutyCycle(0)
+
+#             self.p3.ChangeDutyCycle(0)
+#             self.p4.ChangeDutyCycle(abs(r_thrust))
+
+        l_thrust = int((f_thrust * 70) + (rot_thrust * 30))
+        r_thrust = int((f_thrust * 70) - (rot_thrust * 30))
+        
+        if l_thrust < 0:
             self.p1.ChangeDutyCycle(abs(l_thrust))
             self.p2.ChangeDutyCycle(0)
-
+        else:
+            self.p1.ChangeDutyCycle(0)
+            self.p2.ChangeDutyCycle(l_thrust)
+            
+        
+        if r_thrust < 0:
             self.p3.ChangeDutyCycle(0)
             self.p4.ChangeDutyCycle(abs(r_thrust))
-        
+            
+        else:
+            self.p3.ChangeDutyCycle(r_thrust)
+            self.p4.ChangeDutyCycle(0)
 
-
+            
     def move(self):
         i=0
         lower = [
@@ -134,7 +152,7 @@ class Movement:
 
 
 
-if __name__ == "__main__":
+def main():
     movement = Movement()
     try:
 #         movement.forward(80)
@@ -145,11 +163,15 @@ if __name__ == "__main__":
 #         time.sleep(2)
 #         movement.right(80)
 #         time.sleep(2)
-        movement.move()
+        movement.custom_thrust(- 0.7, - 0.5)
+        time.sleep(2)
         movement.cleanup()
     except Exception as e:
         print(e)
         movement.cleanup()
+    
+if __name__ == "__main__":
+    main()
 
 
 
