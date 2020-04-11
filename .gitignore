@@ -5,7 +5,9 @@
 *.pyc
 *.avi
 
-
+driving_log.csv
+simulator-linux/*
+CarND-Behavioral-Cloning-Project
 
 
 *checkpoint
