@@ -6,7 +6,7 @@
 *.avi
 
 driving_log.csv
-simulator-linux/*
+simulator-linux
 CarND-Behavioral-Cloning-Project
 
 
