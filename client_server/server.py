@@ -70,8 +70,10 @@ class PS4Controller(object):
                     print(type(self.hat_data))
                     pprint.pprint(self.hat_data)
 
-                    data_byte = json.dumps([self.axis_data, self.button_data[7]]).encode('utf-8')
-                    c.send(data_byte)
+                    data_byte = json.dumps(self.axis_data).encode('utf-8')
+                    c.sendall(data_byte)
+                    data = c.recv(4).strip()
+                    print(data)
                     # return self.axis_data , self.hat_data, self.button_data
         except Exception as e:
             print(e)

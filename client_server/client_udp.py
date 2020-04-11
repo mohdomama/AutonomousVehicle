@@ -27,7 +27,7 @@ class PS4Controller(object):
 
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)          
         print ("Socket successfully created")
-
+        
         # s.bind((ip, port))         
         # print ("socket binded to %s" %(port)) 
         # s.listen(5)      
@@ -72,13 +72,13 @@ class PS4Controller(object):
 
                     data_byte = json.dumps(self.axis_data).encode('utf-8')
                     s.sendto(data_byte, (ip, port))
-                    data = s.recvfrom(4)
-                    print(data)
+                    # data = s.recvfrom(4)
+                    # print(data)
                     # return self.axis_data , self.hat_data, self.button_data
         except Exception as e:
             print(e)
             print('Closing Connection')
-            c.close() 
+            s.close() 
 
 if __name__ == "__main__":
     ps4 = PS4Controller()
