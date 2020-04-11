@@ -4,6 +4,8 @@
 *.swp
 *.pyc
 *.avi
+*.png
+
 
 driving_log.csv
 simulator-linux
