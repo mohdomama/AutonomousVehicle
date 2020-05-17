@@ -11,3 +11,5 @@
 - LaneDetection: Testing different lane detection approaches
 - Motion: Utility scripts to drive Raspberry Pi based model car
 - client_server: A UDP cliet-server for communication between Pi and Controller
+
+Project Link: https://www.linkedin.com/posts/mohdomama_covid19-activity-6654735664971636736-BW5Y
