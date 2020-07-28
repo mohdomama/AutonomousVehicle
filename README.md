@@ -1,7 +1,17 @@
 # AutonomousVehicle
-> Final year project
+> Final year project | 
+> We developed the software stack for an autonomous vehicle
 
-### Repository Structure:
+The project mostly focuses on developing a Behavioral Cloning pipeline for our vehicle and its implementation on hardware. We have also worked on some state of the art lane detection and object detection techniques like LaneNet, YOLO, etc. 
+
+### Tech Stack:
+- Tensorflow
+- OpenCV
+- Keras
+- Python
+
+
+### GitHub Repository Structure:
 - BehavioralCloning: directory for behavioral cloning codes. 
   - IMG: Data directory (Not Commited)
   - driving_log.csv: Details of data (Not Commited)
