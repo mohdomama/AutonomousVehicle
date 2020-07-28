@@ -12,4 +12,6 @@
 - Motion: Utility scripts to drive Raspberry Pi based model car
 - client_server: A UDP cliet-server for communication between Pi and Controller
 
-Live Demo: https://www.linkedin.com/posts/mohdomama_covid19-activity-6654735664971636736-BW5Y
+
+### Here is a live demonstration of the project:-
+[Live Demo](https://www.linkedin.com/posts/mohdomama_covid19-activity-6654735664971636736-BW5Y)
