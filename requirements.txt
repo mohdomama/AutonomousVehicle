@@ -40,7 +40,7 @@ opencv-python==4.2.0.34
 parso==0.6.2
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==7.1.1
+Pillow==8.1.1
 pip-upgrade-outdated==1.5
 prompt-toolkit==1.0.14
 protobuf==3.11.3
