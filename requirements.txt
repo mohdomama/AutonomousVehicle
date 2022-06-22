@@ -35,7 +35,7 @@ mock==3.0.5
 monotonic==1.5
 moviepy==0.2.3.2
 netifaces==0.10.6
-numpy==1.18.2
+numpy==1.22.0
 opencv-python==4.2.0.34
 parso==0.6.2
 pexpect==4.8.0
