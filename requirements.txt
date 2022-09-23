@@ -43,7 +43,7 @@ pickleshare==0.7.5
 Pillow==7.1.1
 pip-upgrade-outdated==1.5
 prompt-toolkit==1.0.14
-protobuf==3.11.3
+protobuf==3.18.3
 ptyprocess==0.6.0
 Pygments==2.6.1
 pyparsing==2.4.7
